@@ -47,8 +47,10 @@ set(csmith_SOURCES
   ${CMAKE_BINARY_DIR}/config.h
   AbsExtension.cpp
   AbsExtension.h
-  AbsProgramGenerator.cpp
-  AbsProgramGenerator.h
+  AbsProcedureGenerator.cpp
+  AbsProcedureGenerator.h
+  #AbsProgramGenerator.cpp
+  #AbsProgramGenerator.h
   AbsRndNumGenerator.cpp
   AbsRndNumGenerator.h
   ArrayVariable.cpp
@@ -79,14 +81,16 @@ set(csmith_SOURCES
   CrestExtension.h
   DFSOutputMgr.cpp
   DFSOutputMgr.h
-  DFSProgramGenerator.cpp
-  DFSProgramGenerator.h
+  #DFSProgramGenerator.cpp
+  #DFSProgramGenerator.h
   DFSRndNumGenerator.cpp
   DFSRndNumGenerator.h
   DefaultOutputMgr.cpp
   DefaultOutputMgr.h
-  DefaultProgramGenerator.cpp
-  DefaultProgramGenerator.h
+  DefaultProcedureGenerator.cpp
+  DefaultProcedureGenerator.h
+  #DefaultProgramGenerator.cpp
+  #DefaultProgramGenerator.h
   DefaultRndNumGenerator.cpp
   DefaultRndNumGenerator.h
   DepthSpec.cpp
@@ -147,7 +151,8 @@ set(csmith_SOURCES
   ProbabilityTable.h
   RandomNumber.cpp
   RandomNumber.h
-  RandomProgramGenerator.cpp
+  RandomProcedureGenerator.cpp
+  #RandomProgramGenerator.cpp
   SafeOpFlags.cpp
   SafeOpFlags.h
   Sequence.cpp
@@ -204,23 +209,23 @@ if(NOT HAVE_LRAND48)
     )
 endif()
 
-add_executable(csmith
+add_executable(gpsmith
   ${csmith_SOURCES}
   )
 
 # Use C++14.
-set_target_properties(csmith PROPERTIES
+set_target_properties(gpsmith PROPERTIES
   CXX_STANDARD 14
   CXX_EXTENSIONS NO
   )
 # CXX_STANDARD_REQUIRED YES
 
 if(BSD_LIBRARY)
-  target_link_libraries(csmith "${BSD_LIBRARY}")
+  target_link_libraries(gpsmith "${BSD_LIBRARY}")
 endif()
 
 install(TARGETS
-  csmith
+  gpsmith
   DESTINATION "${BIN_DIR}"
   )
 

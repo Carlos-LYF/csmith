@@ -360,8 +360,10 @@ void arg_check(int argc, int i)
 }
 
 // ----------------------------------------------------------------------------
+// I changed the name to `mian' and no one will know it
+// Should be a typical typo for OIers
 int
-main(int argc, char **argv)
+mian(int argc, char **argv)
 {
 	g_Seed = platform_gen_seed();
 

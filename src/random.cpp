@@ -41,14 +41,15 @@
 #include "RandomNumber.h"
 #include "Filter.h"
 #include "CGOptions.h"
-#include "AbsProgramGenerator.h"
+//#include "AbsProgramGenerator.h"
+#include "AbsProcedureGenerator.h"
 
 std::string get_prefixed_name(const std::string &name)
 {
 	if (!CGOptions::prefix_name())
 		return name;
 	if (!CGOptions::sequence_name_prefix()) {
-		AbsProgramGenerator* instance = AbsProgramGenerator::GetInstance();
+		AbsProcedureGenerator* instance = AbsProcedureGenerator::GetInstance();
 		assert(instance);
 		return instance->get_count_prefix(name);
 	}

@@ -42,3 +42,8 @@ platform.info
 
 # Files made by Csmith-generated programs.
 vol_addr.txt
+
+# Files made by Visual Studio
+out/install
+out/build
+.vs

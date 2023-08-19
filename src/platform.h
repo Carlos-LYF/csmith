@@ -30,6 +30,8 @@
 #ifndef PLATFORM_H
 #define PLATFORM_H
 
+#define WIN32
+
 ///////////////////////////////////////////////////////////////////////////////
 
 unsigned long platform_gen_seed();
