@@ -20,16 +20,16 @@ Maybe I'll write something when stars align.
 #	include <config.h>
 #endif
 
-#ifdef WIN32
-#pragma warning(disable : 4786)	/* This warning is disabled in `csmith', so I do the same */
-#endif
-
 #include "Common.h"
 
 #include "CGOptions.h"
 #include "AbsProcedureGenerator.h"
 
 #include "platform.h"
+
+#ifdef WIN32
+#pragma warning(disable : 4786)	/* This warning is disabled in `csmith', so I do the same */
+#endif
 
 using namespace std;	/* Rickey Liang told me not to use std in real work, but I hate him */
 
@@ -41,17 +41,17 @@ int main(int argc, char** argv) {
 
 	CGOptions::set_default_settings();
 
-	cout << "// modified csmith for generating GaussDB procedures" << std::endl;
+	cout << "-- modified csmith for generating GaussDB procedures" << std::endl << std::endl;
 
 	// Currently this program process no command line argument
 	if (argc > 1) {
-		cout << "error: no argument supported!" << std::endl;
+		cerr << "error: no argument supported!" << std::endl;
 		exit(-1);
 	}
 
 	AbsProcedureGenerator* generator = AbsProcedureGenerator::CreateInstance(argc, argv, g_Seed);
 	if (!generator) {
-		cout << "error: can't create generator!" << std::endl;
+		cerr << "error: can't create generator!" << std::endl;
 		exit(-1);
 	}
 	generator->goGenerator();

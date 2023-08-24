@@ -24,7 +24,7 @@ using namespace std;
 
 AbsProcedureGenerator* AbsProcedureGenerator::current_generator_ = NULL;
 
-OutputMgr* AbsProcedureGenerator::GetOutputMgr() {
+OutputMgrProcedure* AbsProcedureGenerator::GetOutputMgr() {
 	assert(current_generator_);
 	return current_generator_->getOutputMgr();
 }

@@ -14,7 +14,7 @@
 
 #include "AbsProcedureGenerator.h"
 
-class OutputMgr;
+class OutputMgrProcedure;
 
 class DefaultProcedureGenerator :public AbsProcedureGenerator {
 public:
@@ -22,7 +22,7 @@ public:
 
 	virtual ~DefaultProcedureGenerator();
 
-	virtual OutputMgr* getOutputMgr() { return output_mgr_; }
+	virtual OutputMgrProcedure* getOutputMgr() { return output_mgr_; }
 
 	virtual void goGenerator();
 
@@ -37,7 +37,7 @@ private:
 
 	unsigned long seed_;
 
-	OutputMgr* output_mgr_;
+	OutputMgrProcedure* output_mgr_;
 };
 
 #endif

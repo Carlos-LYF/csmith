@@ -14,7 +14,7 @@
 
 #include <string>
 
-class OutputMgr;
+class OutputMgrProcedure;
 
 class AbsProcedureGenerator {
 public:
@@ -26,11 +26,11 @@ public:
 
 	virtual ~AbsProcedureGenerator();
 
-	static OutputMgr* GetOutputMgr();
+	static OutputMgrProcedure* GetOutputMgr();
 
 	virtual void goGenerator() = 0;
 
-	virtual OutputMgr* getOutputMgr() = 0;
+	virtual OutputMgrProcedure* getOutputMgr() = 0;
 
 	virtual std::string get_count_prefix(const std::string& name) = 0;
 
@@ -40,7 +40,7 @@ protected:
 private:
 	static AbsProcedureGenerator* current_generator_;
 
-	static OutputMgr* getmgr(AbsProcedureGenerator* gen);
+	static OutputMgrProcedure* getmgr(AbsProcedureGenerator* gen);
 };
 
 #endif

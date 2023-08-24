@@ -42,6 +42,7 @@
 #include <vector>
 #include <algorithm>
 #include "OutputMgr.h"
+#include "OutputMgrProcedure.h"
 //#include "AbsProgramGenerator.h"
 #include "AbsProcedureGenerator.h"
 #include "CGOptions.h"
@@ -155,7 +156,7 @@ void really_outputln(std::ostream &out)
 
 void outputln(std::ostream &out)
 {
-	OutputMgr *output = AbsProcedureGenerator::GetOutputMgr();
+	OutputMgrProcedure *output = AbsProcedureGenerator::GetOutputMgr();
 	assert(output);
 	output->outputln(out);
 }
@@ -193,14 +194,14 @@ void output_close_encloser(const char* symbol, std::ostream &out, int& indent, b
 
 void output_comment_line(std::ostream &out, const std::string &comment)
 {
-	OutputMgr *output = AbsProcedureGenerator::GetOutputMgr();
+	OutputMgrProcedure *output = AbsProcedureGenerator::GetOutputMgr();
 	assert(output);
 	output->output_comment_line(out, comment);
 }
 
 void output_tab(std::ostream &out, int indent)
 {
-	OutputMgr *output = AbsProcedureGenerator::GetOutputMgr();
+	OutputMgrProcedure *output = AbsProcedureGenerator::GetOutputMgr();
 	assert(output);
 	output->output_tab(out, indent);
 }

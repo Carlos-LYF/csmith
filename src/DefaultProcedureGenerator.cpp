@@ -18,7 +18,7 @@
 #include "DefaultProcedureGenerator.h"
 #include "Finalization.h"
 #include "RandomNumber.h"
-#include "DefaultOutputMgr.h"
+#include "DefaultOutputMgrProcedure.h"
 #include "ExtensionMgr.h"
 #include "Type.h"
 #include "Function.h"
@@ -33,7 +33,7 @@ DefaultProcedureGenerator::~DefaultProcedureGenerator() {
 
 void DefaultProcedureGenerator::initialize() {
 	RandomNumber::CreateInstance(rDefaultRndNumGenerator, seed_);
-	output_mgr_ = DefaultOutputMgr::CreateInstance();
+	output_mgr_ = DefaultOutputMgrProcedure::CreateInstance();
 	assert(output_mgr_);
 
 	ExtensionMgr::CreateExtension();
@@ -46,7 +46,7 @@ std::string DefaultProcedureGenerator::get_count_prefix(const std::string&) {
 }
 
 void DefaultProcedureGenerator::goGenerator() {
-	output_mgr_->OutputHeader(argc_, argv_, seed_);
+	output_mgr_->OutputHeader(seed_);
 
 	GenerateAllTypes();
 	GenerateFunctions();

@@ -79,14 +79,16 @@ set(csmith_SOURCES
   CoverageTestExtension.h
   CrestExtension.cpp
   CrestExtension.h
-  DFSOutputMgr.cpp
-  DFSOutputMgr.h
+  #DFSOutputMgr.cpp
+  #DFSOutputMgr.h
   #DFSProgramGenerator.cpp
   #DFSProgramGenerator.h
   DFSRndNumGenerator.cpp
   DFSRndNumGenerator.h
   DefaultOutputMgr.cpp
   DefaultOutputMgr.h
+  DefaultOutputMgrProcedure.cpp
+  DefaultOutputMgrProcedure.h
   DefaultProcedureGenerator.cpp
   DefaultProcedureGenerator.h
   #DefaultProgramGenerator.cpp
@@ -144,6 +146,8 @@ set(csmith_SOURCES
   LinearSequence.h
   OutputMgr.cpp
   OutputMgr.h
+  OutputMgrProcedure.cpp
+  OutputMgrProcedure.h
   PartialExpander.cpp
   PartialExpander.h
   Probabilities.cpp
