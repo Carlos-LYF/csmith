@@ -46,7 +46,7 @@ std::string DefaultProcedureGenerator::get_count_prefix(const std::string&) {
 }
 
 void DefaultProcedureGenerator::goGenerator() {
-	output_mgr_->OutputHeader(seed_);
+	output_mgr_->OutputHeader(argc_, argv_, seed_);
 
 	GenerateAllTypes();
 	GenerateFunctions();

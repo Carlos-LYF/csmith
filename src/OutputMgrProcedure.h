@@ -23,7 +23,7 @@ public:
 
 	virtual ~OutputMgrProcedure() = 0;
 
-	virtual void OutputHeader(unsigned long seed) = 0;
+	virtual void OutputHeader(int argc, char* argv[], unsigned long seed) = 0;
 
 	virtual void Output() = 0;
 

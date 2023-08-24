@@ -25,7 +25,11 @@
 
 #include "git_version.h"
 
-void OutputMgrProcedure::OutputHeader(unsigned long seed) {
+static const char runtime_include[] = "\
+#include \"csmith.h\"\n\
+";
+
+void OutputMgrProcedure::OutputHeader(int argc, char* argv[], unsigned long seed) {
 	std::ostream& out = get_main_out();
 
 	out << "/*" << endl;
@@ -33,8 +37,27 @@ void OutputMgrProcedure::OutputHeader(unsigned long seed) {
 	out << " *" << endl;
 	out << " * Generator: " << PACKAGE_STRING << endl;
 	out << " * Git version: " << git_version << endl;
+	out << " * Options:  ";
+	if (argc <= 1) {
+		out << " (none)";
+	}
+	else {
+		for (int i = 1; i < argc; ++i) {
+			out << " " << argv[i];
+		}
+	}
+	out << endl;
 	out << " * Seed: " << seed << endl;
 	out << " */" << endl;
+	out << endl;
+
+	ExtensionMgr::OutputHeader(out);
+
+	out << runtime_include << endl;
+
+	out << endl;
+
+	out << "static long __undefined;" << endl;
 	out << endl;
 }
 
@@ -50,11 +73,13 @@ void OutputMgrProcedure::OutputMain(std::ostream& out) {
 
 	OutputArrayInitializers(*VariableSelector::GetGlobalVariables(), out, 1);
 
+	out << "    int print_hash_value = 0;" << endl;
+	out << "    if (argc == 2 && strcmp(argv[1], \"1\") == 0) print_hash_value = 1;" << endl;
+	out << "    platform_main_begin();" << endl;
+	out << "    crc32_gentab();" << endl;
 	ExtensionMgr::OutputFirstFunInvocation(out, invoke);
-	std::vector<Variable*>& vars = *VariableSelector::GetGlobalVariables();
-	for (size_t i = 0; i < vars.size(); i++) {
-		vars[i]->output_value_dump(out, "checksum ", 1);
-	}
+	HashGlobalVariables(out);
+	out << "    platform_main_end(crc32_context ^ 0xFFFFFFFFUL, print_hash_value);" << endl;
 
 	ExtensionMgr::OutputTail(out);
 	out << "}" << endl;
@@ -69,7 +94,7 @@ void OutputMgrProcedure::OutputTail(std::ostream& out) {
 }
 
 void OutputMgrProcedure::output_comment_line(ostream& out, const std::string& comment) {
-	out << "-- " << comment;
+	out << "/* " << comment << "*/";
 	outputln(out);
 }
 

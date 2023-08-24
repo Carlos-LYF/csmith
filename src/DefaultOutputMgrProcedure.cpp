@@ -36,8 +36,8 @@ DefaultOutputMgrProcedure* DefaultOutputMgrProcedure::CreateInstance() {
 	return DefaultOutputMgrProcedure::instance_;
 }
 
-void DefaultOutputMgrProcedure::OutputHeader(unsigned long seed) {
-	OutputMgrProcedure::OutputHeader(seed);
+void DefaultOutputMgrProcedure::OutputHeader(int argc, char* argv[], unsigned long seed) {
+	OutputMgrProcedure::OutputHeader(argc, argv, seed);
 }
 
 void DefaultOutputMgrProcedure::Output() {

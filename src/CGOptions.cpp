@@ -242,8 +242,8 @@ CGOptions::set_default_settings(void)
 	CGOptions::concise(false);
 	CGOptions::nomain(false);
 	random_based(true);
-	use_struct(true);
-	use_union(true);
+	use_struct(false); // temporarily disable these tricky options
+	use_union(false); // temporarily diable these tricky options
 	compact_output(false);
 	func1_max_params(CGOPTIONS_DEFAULT_FUNC1_MAX_PARAMS);
 	klee(false);
@@ -265,8 +265,8 @@ CGOptions::set_default_settings(void)
 	uint8(true);
 	enable_float(false);
 	strict_float(false);
-	pointers(true);
-	arrays(true);
+	pointers(false); // temporarily disable these tricky options
+	arrays(false); // temporarily disable these tricky options
 	strict_const_arrays(false);
 	jumps(true);
 	return_structs(true);
