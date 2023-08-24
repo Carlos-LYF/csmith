@@ -47,3 +47,4 @@ vol_addr.txt
 out/install
 out/build
 .vs
+CMakeSettings.json
