@@ -67,6 +67,7 @@ enum dType {
 	dtFunctionGenerateBody,
 	dtGenerateParamList,
 	dtTypeChooseSimple,
+	dtTypeChooseSql,
 	dtSelectLValue,
 	dtSelectVariable,
 	dtSelectDerefPointer,

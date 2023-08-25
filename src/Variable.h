@@ -65,13 +65,13 @@ class Variable
 	friend class VariableSelector;
 	friend class ArrayVariable;
 public:
-	static Variable *CreateVariable(const std::string &name, const Type *type, const Expression* init, const CVQualifiers* qfer);
-	static Variable *CreateVariable(const std::string &name, const Type *type,
-			 bool isConst, bool isVolatile,
-			 bool isAuto, bool isStatic, bool isRegister, bool isBitfield, const Variable* isFieldVarOf);
-	static Variable *CreateVariable(const std::string &name, const Type *type,
-			 const vector<bool>& isConsts, const vector<bool>& isVolatiles,
-			 bool isAuto, bool isStatic, bool isRegister, bool isBitfield, const Variable* isFieldVarOf);
+	static Variable* CreateVariable(const std::string& name, const Type* type, const Expression* init, const CVQualifiers* qfer);
+	static Variable* CreateVariable(const std::string& name, const Type* type,
+		bool isConst, bool isVolatile,
+		bool isAuto, bool isStatic, bool isRegister, bool isBitfield, const Variable* isFieldVarOf);
+	static Variable* CreateVariable(const std::string& name, const Type* type,
+		const vector<bool>& isConsts, const vector<bool>& isVolatiles,
+		bool isAuto, bool isStatic, bool isRegister, bool isBitfield, const Variable* isFieldVarOf);
 
 	static void doFinalization(void);
 
@@ -79,8 +79,8 @@ public:
 	virtual bool is_global(void) const;
 	virtual bool is_local(void) const;
 	virtual bool is_visible_local(const Block* blk) const;
-	virtual size_t get_dimension(void) const { return 0;}
-	bool is_visible(const Block* blk) const { return is_global() || is_visible_local(blk);}
+	virtual size_t get_dimension(void) const { return 0; }
+	bool is_visible(const Block* blk) const { return is_global() || is_visible_local(blk); }
 	bool is_argument(void) const;
 	bool is_tmp_var(void) const;
 	bool is_const(void) const;
@@ -103,7 +103,7 @@ public:
 	bool is_aggregate(void) const { return type && type->is_aggregate(); }
 	bool match(const Variable* v) const;
 	bool loose_match(const Variable* v) const;
-	bool is_pointer(void) const { return type && type->eType == ePointer;}
+	bool is_pointer(void) const { return type && type->eType == ePointer; }
 	bool is_rv(void) const { return name.find("_rv") != string::npos; }
 	int get_seq_num(void) const;
 	void find_pointer_fields(vector<const Variable*>& ptr_fields) const;
@@ -112,39 +112,40 @@ public:
 	std::string to_string(void) const;
 
 	// ISSUE: we treat volatiles specially
-	bool compatible(const Variable *v) const;
+	bool compatible(const Variable* v) const;
 	const Variable* get_named_var(void) const;
 	const Variable* match_var_name(const string& vname) const;
 	virtual void hash(std::ostream& out) const;
 	virtual const Variable* get_collective(void) const;
 	virtual const ArrayVariable* get_array(string& field) const;
-	virtual int get_index_vars(vector<const Variable*>& /* vars */) const { return 0;}
+	virtual int get_index_vars(vector<const Variable*>& /* vars */) const { return 0; }
 
 	///////////////////////////////////////////////////////////////////////
 
-	virtual void Output(std::ostream &) const;
-	int output_runtime_value(ostream &out, string prefix, string suffix, int indent, bool multi_lines=false) const;
-	int output_addressable_name(ostream &out, int indent) const;
-	int output_volatile_address(ostream &out, int indent, const string &fp_string, vector<string> &seen_names) const;
-	int output_volatile_fprintf(ostream &out, int indent, const string &name,
-		const string &sizeof_string, const string &fp_string) const;
-	bool is_seen_name(vector<std::string> &seen_names, const std::string &name) const;
+	virtual void Output(std::ostream&) const;
+	int output_runtime_value(ostream& out, string prefix, string suffix, int indent, bool multi_lines = false) const;
+	int output_addressable_name(ostream& out, int indent) const;
+	int output_volatile_address(ostream& out, int indent, const string& fp_string, vector<string>& seen_names) const;
+	int output_volatile_fprintf(ostream& out, int indent, const string& name,
+		const string& sizeof_string, const string& fp_string) const;
+	bool is_seen_name(vector<std::string>& seen_names, const std::string& name) const;
 	bool is_valid_volatile(void) const;
-	int output_value_dump(ostream &out, string prefix, int indent) const;
-	void OutputAddrOf(std::ostream &) const;
-	void OutputForComment(std::ostream &) const;
-	virtual void OutputDef(std::ostream &out, int indent) const;
-	virtual void OutputDecl(std::ostream &) const;
-	virtual void output_qualified_type(std::ostream &out) const;
-	virtual void OutputLowerBound(std::ostream &) const;
-	virtual void OutputUpperBound(std::ostream &) const;
+	int output_value_dump(ostream& out, string prefix, int indent) const;
+	void OutputAddrOf(std::ostream&) const;
+	void OutputForComment(std::ostream&) const;
+	virtual void OutputSQLDef(std::ostream& out, int indent) const;
+	virtual void OutputDef(std::ostream& out, int indent) const;
+	virtual void OutputDecl(std::ostream&) const;
+	virtual void output_qualified_type(std::ostream& out) const;
+	virtual void OutputLowerBound(std::ostream&) const;
+	virtual void OutputUpperBound(std::ostream&) const;
 
 	static size_t GetMaxArrayDimension(const vector<Variable*>& vars);
 
-	vector<Variable *> field_vars;    // field variables for struct/unions
+	vector<Variable*> field_vars;    // field variables for struct/unions
 	const std::string name;
-	const Type *type;
-	const Expression *init;
+	const Type* type;
+	const Expression* init;
 
 	// Storage-class specifiers.
 	const bool isAuto;
@@ -157,8 +158,8 @@ public:
 	const Variable* field_var_of; //expanded from a struct/union
 	const bool isArray;
 	const CVQualifiers qfer;
-	static std::vector<const Variable*> &get_new_ctrl_vars();
-	static std::vector<const Variable*> &get_last_ctrl_vars();
+	static std::vector<const Variable*>& get_new_ctrl_vars();
+	static std::vector<const Variable*>& get_last_ctrl_vars();
 
 	static const char sink_var_name[];
 
@@ -166,11 +167,11 @@ public:
 	static AttributeGenerator var_attr_generator;
 
 private:
-	Variable(const std::string &name, const Type *type, const Expression* init, const CVQualifiers* qfer);
-	Variable(const std::string &name, const Type *type, const Expression* init, const CVQualifiers* qfer, const Variable* isFieldVarOf, bool isArray);
-	Variable(const std::string &name, const Type *type,
-			 const vector<bool>& isConsts, const vector<bool>& isVolatiles,
-			 bool isAuto, bool isStatic, bool isRegister, bool isBitfield, const Variable* isFieldVarOf);
+	Variable(const std::string& name, const Type* type, const Expression* init, const CVQualifiers* qfer);
+	Variable(const std::string& name, const Type* type, const Expression* init, const CVQualifiers* qfer, const Variable* isFieldVarOf, bool isArray);
+	Variable(const std::string& name, const Type* type,
+		const vector<bool>& isConsts, const vector<bool>& isVolatiles,
+		bool isAuto, bool isStatic, bool isRegister, bool isBitfield, const Variable* isFieldVarOf);
 
 	static std::vector<const Variable*>& new_ctrl_vars(void);
 	static std::vector< std::vector<const Variable*>* > ctrl_vars_vectors;
@@ -179,13 +180,14 @@ private:
 	void create_field_vars(const Type* type);
 };
 
-void OutputVariableList(const std::vector<Variable*> &var, std::ostream &out, int indent = 0);
-void OutputVariableDeclList(const std::vector<Variable*> &var, std::ostream &out, std::string prefix = "", int indent = 0);
-void OutputArrayInitializers(const vector<Variable*>& vars, std::ostream &out, int indent);
-void OutputArrayCtrlVars(const vector<const Variable*>& ctrl_vars, std::ostream &out, size_t dimen, int indent);
-void OutputVolatileAddress(const vector<Variable*> &vars, std::ostream &out, int indent, const string &fp_string);
-void MapVariableList(const vector<Variable*> &var, std::ostream &out, int (*func)(Variable *var, std::ostream *pOut));
-int HashVariable(Variable *var, std::ostream *pOut);
+void OutputSQLVariableList(const std::vector<Variable*>& var, std::ostream& out, int indent = 0);
+void OutputVariableList(const std::vector<Variable*>& var, std::ostream& out, int indent = 0);
+void OutputVariableDeclList(const std::vector<Variable*>& var, std::ostream& out, std::string prefix = "", int indent = 0);
+void OutputArrayInitializers(const vector<Variable*>& vars, std::ostream& out, int indent);
+void OutputArrayCtrlVars(const vector<const Variable*>& ctrl_vars, std::ostream& out, size_t dimen, int indent);
+void OutputVolatileAddress(const vector<Variable*>& vars, std::ostream& out, int indent, const string& fp_string);
+void MapVariableList(const vector<Variable*>& var, std::ostream& out, int (*func)(Variable* var, std::ostream* pOut));
+int HashVariable(Variable* var, std::ostream* pOut);
 
 int find_variable_in_set(const vector<const Variable*>& set, const Variable* v);
 int find_variable_in_set(const vector<Variable*>& set, const Variable* v);

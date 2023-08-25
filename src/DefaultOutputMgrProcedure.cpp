@@ -43,10 +43,8 @@ void DefaultOutputMgrProcedure::OutputHeader(int argc, char* argv[], unsigned lo
 void DefaultOutputMgrProcedure::Output() {
 	std::ostream& out = get_main_out();
 
-	OutputStructUnionDeclarations(out);
-	OutputGlobalVariables(out);
-	OutputForwardDeclarations(out);
 	OutputFunctions(out);
+	OutputProcedureVariables(out);
 
 	OutputMain(out);
 

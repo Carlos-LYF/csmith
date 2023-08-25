@@ -58,25 +58,25 @@ static string GenerateRandomConstant(const Type* type);
  * TODO: make well-known constants
  */
 
-///////////////////////////////////////////////////////////////////////////////
+ ///////////////////////////////////////////////////////////////////////////////
 
-/*
- *
- */
-Constant::Constant(const Type *t, const string &v)
+ /*
+  *
+  */
+Constant::Constant(const Type* t, const string& v)
 	: Expression(eConstant),
-	  type(t),
-	  value(v)
+	type(t),
+	value(v)
 {
 }
 
 /*
  *
  */
-Constant::Constant(const Constant &c)
+Constant::Constant(const Constant& c)
 	: Expression(eConstant),
-	  type(c.type),
-	  value(c.value)
+	type(c.type),
+	value(c.value)
 {
 }
 
@@ -90,7 +90,7 @@ Constant::~Constant(void)
 
 ///////////////////////////////////////////////////////////////////////////////
 
-Expression *
+Expression*
 Constant::clone() const
 {
 	return new Constant(*this);
@@ -100,7 +100,7 @@ Constant::clone() const
 string HexToBinary(string val)
 {
 	std::ostringstream oss;
-	string ToBinary[] = {"0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001", "1010", "1011", "1100", "1101", "1110", "1111"};
+	string ToBinary[] = { "0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001", "1010", "1011", "1100", "1101", "1110", "1111" };
 	for (unsigned int i = 0; i < val.size(); i++) {
 		if ((val[i] - '0') < 16)
 			oss << ToBinary[val[i] - '0'];
@@ -117,7 +117,8 @@ GenerateRandomCharConstant(void)
 	string ch;
 	if (CGOptions::binary_constant() && rnd_flipcoin(pBinaryConstProb)) {
 		ch = string("0b") + HexToBinary(RandomHexDigits(2));
-	} else if (CGOptions::ccomp() || !CGOptions::longlong())
+	}
+	else if (CGOptions::ccomp() || !CGOptions::longlong())
 		ch = string("0x") + RandomHexDigits(2);
 	else
 		ch = string("0x") + RandomHexDigits(2) + "L";
@@ -131,11 +132,12 @@ GenerateRandomIntConstant(void)
 	string val;
 	// Int constant - Max 8 Hex digits on 32-bit platforms
 	if (CGOptions::binary_constant() && rnd_flipcoin(pBinaryConstProb)) {
-		val = string("0b") + HexToBinary(RandomHexDigits( 8 ));
-	} else if (CGOptions::ccomp() || !CGOptions::longlong())
-		val = "0x" + RandomHexDigits( 8 );
+		val = string("0b") + HexToBinary(RandomHexDigits(8));
+	}
+	else if (CGOptions::ccomp() || !CGOptions::longlong())
+		val = "0x" + RandomHexDigits(8);
 	else
-		val = "0x" + RandomHexDigits( 8 ) + "L";
+		val = "0x" + RandomHexDigits(8) + "L";
 
 	return val;
 }
@@ -146,9 +148,10 @@ GenerateRandomInt128Constant(void)
 {
 	string val;
 	if (CGOptions::binary_constant() && rnd_flipcoin(pBinaryConstProb)) {
-		val = string("0b") + HexToBinary(RandomHexDigits( 16 ));
-	} else
-		val = "0x" + RandomHexDigits( 16 ) ;
+		val = string("0b") + HexToBinary(RandomHexDigits(16));
+	}
+	else
+		val = "0x" + RandomHexDigits(16);
 	return val;
 }
 
@@ -159,11 +162,12 @@ GenerateRandomShortConstant(void)
 	string val;
 	// Short constant - Max 4 Hex digits on 32-bit platforms
 	if (CGOptions::binary_constant() && rnd_flipcoin(pBinaryConstProb)) {
-                val = string("0b") + HexToBinary(RandomHexDigits( 4 ));
-	} else if (CGOptions::ccomp() || !CGOptions::longlong())
-		val = "0x" + RandomHexDigits( 4 );
+		val = string("0b") + HexToBinary(RandomHexDigits(4));
+	}
+	else if (CGOptions::ccomp() || !CGOptions::longlong())
+		val = "0x" + RandomHexDigits(4);
 	else
-		val = "0x" + RandomHexDigits( 4 ) + "L";
+		val = "0x" + RandomHexDigits(4) + "L";
 
 	return val;
 }
@@ -175,11 +179,12 @@ GenerateRandomLongConstant(void)
 	string val;
 	// Long constant - Max 8 Hex digits on 32-bit platforms
 	if (CGOptions::binary_constant() && rnd_flipcoin(pBinaryConstProb)) {
-                val = string("0b") + HexToBinary(RandomHexDigits( 8 ));
-	} else if (!CGOptions::longlong())
-		val = "0x" + RandomHexDigits( 8 );
+		val = string("0b") + HexToBinary(RandomHexDigits(8));
+	}
+	else if (!CGOptions::longlong())
+		val = "0x" + RandomHexDigits(8);
 	else
-		val = "0x" + RandomHexDigits( 8 ) + "L";
+		val = "0x" + RandomHexDigits(8) + "L";
 	return val;
 }
 
@@ -190,9 +195,10 @@ GenerateRandomLongLongConstant(void)
 	string val;
 	// Long constant - Max 8 Hex digits on 32-bit platforms
 	if (CGOptions::binary_constant() && rnd_flipcoin(pBinaryConstProb)) {
-		val = string("0b") + HexToBinary(RandomHexDigits( 16 )) + "LL";
-	} else
-		val = "0x" + RandomHexDigits( 16 ) + "LL";
+		val = string("0b") + HexToBinary(RandomHexDigits(16)) + "LL";
+	}
+	else
+		val = "0x" + RandomHexDigits(16) + "LL";
 	return val;
 }
 
@@ -308,12 +314,12 @@ GenerateRandomStructConstant(const Type* type)
 			value += v;
 		}
 		else {
-        		string v = GenerateRandomConstant(type->fields[i]);
+			string v = GenerateRandomConstant(type->fields[i]);
 			ERROR_GUARD("");
-        		if (i > 0) {
-            			value += ",";
+			if (i > 0) {
+				value += ",";
 			}
-        		value += v;
+			value += v;
 		}
 	}
 	value += "}";
@@ -322,7 +328,7 @@ GenerateRandomStructConstant(const Type* type)
 
 // --------------------------------------------------------------
   /* generate an union initializer: unlike struct, initializing
-     the first field is enough
+	 the first field is enough
    *************************************************************/
 static string
 GenerateRandomUnionConstant(const Type* type)
@@ -362,10 +368,11 @@ GenerateRandomConstant(const Type* type)
 			int num = 0;
 			if (pure_rnd_flipcoin(50)) {
 				ERROR_GUARD("");
-				num = pure_rnd_upto(3)-1;
-			} else {
+				num = pure_rnd_upto(3) - 1;
+			}
+			else {
 				ERROR_GUARD("");
-				num = pure_rnd_upto(20)-10;
+				num = pure_rnd_upto(20) - 10;
 			}
 			// don't use negative number for unsigned type, as this causes
 			//trouble for some static analyzers
@@ -384,7 +391,8 @@ GenerateRandomConstant(const Type* type)
 			case eULongLong:
 				if (!CGOptions::longlong()) {
 					oss << (unsigned int)num;
-				} else {
+				}
+				else {
 					oss << ((type->simple_type == eULong) ? (unsigned long)num : (unsigned INT64)num);
 				}
 				break;
@@ -404,8 +412,9 @@ GenerateRandomConstant(const Type* type)
 				else
 					v = oss.str() + (type->is_signed() ? "L" : "UL");
 			}
-		} else {
-		    switch (st) {
+		}
+		else {
+			switch (st) {
 			case eVoid:      v = "/* void */";				break;
 			case eChar:      v = GenerateRandomCharConstant();		break;
 			case eInt:       v = GenerateRandomIntConstant();		break;
@@ -420,14 +429,24 @@ GenerateRandomConstant(const Type* type)
 			case eFloat:     v = GenerateRandomFloatHexConstant();		break;
 			case eInt128:    v = GenerateRandomInt128Constant();		break;
 			case eUInt128:   v = GenerateRandomInt128Constant();		break;
-			// case eDouble:    v = GenerateRandomFloatConstant();		break;
+				// case eDouble:    v = GenerateRandomFloatConstant();		break;
 			default:
 				assert(0 && "Unsupported type!");
-		    }
+			}
 		}
-	} else {
+	}
+	else if (type->eType == eSQL) {
+		eSQLType st = type->sql_type;
+		switch (st) {
+		case eNUMBER: v = GenerateRandomIntConstant();	break;
+		case eVARCHAR: v = "a string";	break;
+		default:
+			assert(0 && "Unsupported type!");
+		}
+	}
+	else {
 		assert(0);  // no support for types other than integers and structs for now
-    	}
+	}
 	return (type->eType == eSimple && CGOptions::mark_mutable_const()) ? "(" + v + ")" : v;
 }
 
@@ -436,7 +455,7 @@ GenerateRandomConstant(const Type* type)
  * Sometimes we need to generate constants outside of any current function,
  * e.g., initializers for global variables
  */
-Constant *
+Constant*
 Constant::make_random(const Type* type)
 {
 	string v = GenerateRandomConstant(type);
@@ -444,7 +463,7 @@ Constant::make_random(const Type* type)
 	return new Constant(type, v);
 }
 
-Constant *
+Constant*
 Constant::make_random_upto(unsigned int limit)
 {
 	ostringstream oss;
@@ -468,7 +487,7 @@ Constant::make_random_nonzero(const Type* type)
  * Return a `Constant' representing the integer value `v'.  Note that the
  * return value may not be "fresh."
  */
-Constant *
+Constant*
 Constant::make_int(int v)
 {
 	// Commented out code for the cache:
@@ -476,10 +495,10 @@ Constant::make_int(int v)
 #if 0
 	static const int cache_size = 256;
 	static bool cache_inited = false;
-	static Constant *cache_constants[cache_size];
+	static Constant* cache_constants[cache_size];
 #endif
 
-	const Type &int_type = Type::get_simple_type(eInt);
+	const Type& int_type = Type::get_simple_type(eInt);
 	ERROR_GUARD(NULL);
 
 #if 0
@@ -509,17 +528,17 @@ Constant::make_int(int v)
 }
 
 bool
-Constant::compatible(const Variable *v) const
+Constant::compatible(const Variable* v) const
 {
 	assert(v);
 	if (CGOptions::expand_struct())
 		return true;
-		//return !v->is_field_var();
+	//return !v->is_field_var();
 	return false;
 }
 
 bool
-Constant::compatible(const Expression *exp) const
+Constant::compatible(const Expression* exp) const
 {
 	assert(exp);
 	return false;
@@ -559,7 +578,7 @@ Constant::get_field(size_t fid) const
 /*
  *
  */
-const Type &
+const Type&
 Constant::get_type(void) const
 {
 	return *(type);
@@ -569,25 +588,28 @@ Constant::get_type(void) const
  *
  */
 void
-Constant::Output(std::ostream &out) const
+Constant::Output(std::ostream& out) const
 {
 	//enclose negative numbers in parenthesis to avoid syntax errors such as "--8"
 	if (!value.empty() && value[0] == '-') {
-        output_cast(out);
-        out << "(" << value << ")";
-	} else if (type->eType == ePointer && equals(0)){
-        // don't output cast for NULL:
+		output_cast(out);
+		out << "(" << value << ")";
+	}
+	else if (type->eType == ePointer && equals(0)) {
+		// don't output cast for NULL:
 		if (CGOptions::lang_cpp()) {
 			if (CGOptions::cpp11())
 				out << "nullptr";
 			else
 				out << "NULL";
-		} else {
+		}
+		else {
 			out << "(void*)" << value;
 		}
-	} else {
-        output_cast(out);
-        out << value;
+	}
+	else {
+		output_cast(out);
+		out << value;
 	}
 }
 

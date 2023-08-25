@@ -33,7 +33,7 @@ void OutputMgrProcedure::OutputHeader(int argc, char* argv[], unsigned long seed
 	std::ostream& out = get_main_out();
 
 	out << "/*" << endl;
-	out << " * This is a RANDOMLY GENERATED PL\\SQL PROCEDURE." << endl;
+	out << " * This is a RANDOMLY GENERATED PL\/SQL PROCEDURE." << endl;
 	out << " *" << endl;
 	out << " * Generator: " << PACKAGE_STRING << endl;
 	out << " * Git version: " << git_version << endl;
